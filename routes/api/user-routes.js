@@ -13,7 +13,7 @@ const {
 //api/users
 router.route('/').get(getUsers).post(createNewUser);
 
-//api/users/:userid
+//api/users/:userId
 router.route('/:userId').get(getSingleUser).put(updateUser).delete(deleteUser)
 
 // here we add a friend
