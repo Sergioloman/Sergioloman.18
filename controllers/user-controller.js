@@ -19,6 +19,7 @@ const userController = {
   },
   // create a new user
   createNewUser(req, res) {
+    console.log(req.body)
     User.create(req.body)
       .then((response) => {
         res.json(response);
@@ -51,7 +52,7 @@ const userController = {
   addFriend(req,res){
           User.findOneAndUpdate(
               { _id: req.params.userId },
-              { $addToSet: {friends: req.params.friendsId}},
+              { $addToSet: {friends: req.params.friendId}},
               { new: true }
             )
               .then((response) => {
