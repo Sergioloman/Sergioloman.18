@@ -21,11 +21,12 @@ const thoughtController = {
     createNewThought(req,res){
         Thought.create(req.body)
         .then(({_id})=>{
-            return User.findOneAndUpdate(
-                { _id: params.userId },
-                { $push: { thoughtText: _id } },
+            return User.findOneAndUpdate(//updating thoughts array in user 
+                { _id: params.thoughtId },//req.body.username},// use the id of the comment as a param
+                { $push: { thoughts: _id } },// pushing to the thoughts field from user model
                 { new: true }
-            )
+            )// we could use req.body.userId to identify the request
+            //then push it to toughts :_id
         })
         .then((response) => {
             res.json(response);
