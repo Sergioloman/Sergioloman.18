@@ -22,7 +22,7 @@ const thoughtController = {
         Thought.create(req.body)
         .then(({_id})=>{
             return User.findOneAndUpdate(//updating thoughts array in user 
-                { _id: params.thoughtId },//req.body.username},// use the id of the comment as a param
+                { username: req.body.username},// use the id of the comment as a param
                 { $push: { thoughts: _id } },// pushing to the thoughts field from user model
                 { new: true }
             )// we could use req.body.userId to identify the request
@@ -48,10 +48,8 @@ const thoughtController = {
     },
     // delete a thought by id
     deleteThought(req,res){
-        Thought.findOneAndUpdate(
-            { _id: req.params.userId},
-            { $pull: { thoughtText: req.params.thoughtId}},
-            { new: true}
+        Thought.findOneAndDelete(
+            { _id: req.params.thoughtId}
         )
         .then((response) => {
             res.json(response);
