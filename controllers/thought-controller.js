@@ -61,15 +61,14 @@ const thoughtController = {
 
     // create reaction
     createReaction(req,res){
-        Thought.create(req.body)
-        .then(({ _id })=>{
-            return Thought.findOneAndUpdate(
+        console.log(req.body),
+        Thought.findOneAndUpdate(
             { _id: req.params.thoughtId},
-            { $push: { reactions: _id}},
+            { $push: [{reactions: req.body}]},                          
             { new: true}
             )
-        })
         .then((response) => {
+            console.log(response),
             res.json(response);
           })
           .catch((err) => res.status(500).json(err));
@@ -78,14 +77,11 @@ const thoughtController = {
 
     // delete reaction
     deleteReaction(req,res){
-        Thought.findOne({_id: req.params.thoughtId})
-        .then(({_id})=>{
-            return Thought.findOneAndUpdate(
-                { _id: req.params.thoughtId},
-                { $pull: {reactions: _id}},
-                { new:true}
+        Thought.findOneAndUpdate(
+            { _id: req.params.thoughtId},
+            { $pull: {reactions: { reactionId: req.params.reactionId}}},
+            { new:true}
             )
-        })
         .then((response) => {
             res.json(response);
           })

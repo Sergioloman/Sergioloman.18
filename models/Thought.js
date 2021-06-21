@@ -23,7 +23,7 @@ const ThoughtSchema = new Schema(
       required: true,
       // Required
     },
-    reactions: [ReactionSchema],
+    reactions: [ReactionSchema]
     //Array of nested documents created with the reactionSchema
   },
   {
