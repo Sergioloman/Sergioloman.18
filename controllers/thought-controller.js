@@ -57,15 +57,13 @@ const thoughtController = {
           .catch((err) => res.status(500).json(err));
     },
 
-////////////////definetely could use some help here:
-
     // create reaction
-    createReaction(req,res){
+    createReaction(req, res){
         console.log(req.body),
         Thought.findOneAndUpdate(
             { _id: req.params.thoughtId},
-            { $push: [{reactions: req.body}]},                          
-            { new: true}
+            { $push: {reactions: req.body}},                          
+            { new: true, runValidators: true}
             )
         .then((response) => {
             console.log(response),
